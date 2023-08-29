@@ -1,9 +1,7 @@
 package com.example.restfulwebservices.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,14 +9,26 @@ import java.util.List;
 public class UserResource {
     @Autowired
     UserDaoService userDaoService;
+
     //http://localhost:8080/user
     @GetMapping("/user")
     public List<User> findAll() {
         return userDaoService.findAll();
     }
+
     //http://localhost:8080/user/1
     @GetMapping("/user/{id}")
     public User findOneUser(@PathVariable int id) {
         return userDaoService.findOne(id);
+    }
+    /*POST http://localhost:8080/users
+    {
+        "id": 4,
+            "name": "Hieu",
+            "birthDay": "2023-08-29T03:23:09.588+00:00"
+    }*/
+    @PostMapping("/users")
+    public void createUser(@RequestBody User user) {
+        userDaoService.save(user);
     }
 }
