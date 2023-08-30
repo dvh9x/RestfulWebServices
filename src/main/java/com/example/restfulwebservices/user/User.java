@@ -1,22 +1,23 @@
 package com.example.restfulwebservices.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class User {
     private Integer id;
     @Size(min=2, message="Name should have at least 2 characters")
     private String name;
-    @Past
-    private Date birthDay;
+    @Past(message = "Birth Date should be in the past")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate  birthDate;
 
-    public User(Integer id, String name, Date birthDay) {
-        super();
+    public User(Integer id, String name, LocalDate birthDate) {
         this.id = id;
         this.name = name;
-        this.birthDay = birthDay;
+        this.birthDate = birthDate;
     }
 
     public Integer getId() {
@@ -35,12 +36,12 @@ public class User {
         this.name = name;
     }
 
-    public Date getBirthDay() {
-        return birthDay;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     @Override
@@ -48,7 +49,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", birthDay=" + birthDay +
+                ", birthDate=" + birthDate +
                 '}';
     }
 }

@@ -1,13 +1,13 @@
 package com.example.restfulwebservices.user;
 
+import java.net.URI;
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
-import java.util.List;
-import java.util.Objects;
 
 @RestController
 public class UserResource {
@@ -43,10 +43,21 @@ public class UserResource {
     }
 
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable int id){
+    public void deleteUser(@PathVariable int id) {
         User user = userDaoService.deleteById(id);
-        if(user == null)
+        if (user == null)
             throw new UserNotFoundException("id-" + id);
     }
-
+    //http://localhost:8080/user/v2/1
+    @GetMapping("/user/v2/{id}")
+    public User findUserById(@PathVariable int id) {
+        User user = userDaoService.findOnebyId(id);
+        if (user == null)
+            throw new UserNotFoundException("id-" + id);
+        return user;
+    }
+    @DeleteMapping("/users/v2/{id}")
+    public void deleteUserById(@PathVariable int id) {
+        userDaoService.deleteOneById(id);
+    }
 }

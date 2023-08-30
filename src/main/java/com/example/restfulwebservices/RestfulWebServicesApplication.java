@@ -16,10 +16,10 @@ public class RestfulWebServicesApplication {
         SpringApplication.run(RestfulWebServicesApplication.class, args);
     }
 
-    @Bean
-    public LocaleResolver localeResolver() {
-        AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
-        localeResolver.setDefaultLocale(Locale.US);
-        return localeResolver;
-    }
+//    @Bean
+//    public LocaleResolver localeResolver() {
+//        AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
+//        localeResolver.setDefaultLocale(Locale.US);
+//        return localeResolver;
+//    }
 }
